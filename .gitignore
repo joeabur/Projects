@@ -2,3 +2,6 @@ __pycache__/
 *.csv
 *.json
 !example_config.json
+!examples/
+!examples/*.csv
+!examples/*.json

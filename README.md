@@ -34,10 +34,10 @@ You can load settings from a JSON file like this:
 ```json
 {
   "url": "https://jsonplaceholder.typicode.com/posts",
-  "output": "posts.csv",
+  "output": "examples/posts.csv",
   "timeout": 15,
   "retries": 2,
-  "summary_file": "posts_summary.json"
+  "summary_file": "examples/posts_summary.json"
 }
 ```
 
@@ -45,6 +45,24 @@ Run it with:
 
 ```bash
 python3 api_to_csv.py --config example_config.json
+```
+
+## Example output
+
+A sample CSV output file is included as `examples/posts.csv` and a generated summary file is included as `examples/posts_summary.json`.
+
+Generate the sample output again with:
+
+```bash
+python3 generate_example_output.py
+```
+
+## Tests
+
+Run the unit tests with:
+
+```bash
+python3 -m unittest discover -s tests
 ```
 
 ## Environment variables

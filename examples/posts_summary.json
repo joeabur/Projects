@@ -1,0 +1,5 @@
+{
+  "output": "examples/posts.csv",
+  "row_count": 100,
+  "url": "https://jsonplaceholder.typicode.com/posts"
+}
