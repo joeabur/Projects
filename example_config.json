@@ -1,7 +1,7 @@
 {
   "url": "https://jsonplaceholder.typicode.com/posts",
-  "output": "posts.csv",
+  "output": "examples/posts.csv",
   "timeout": 15,
   "retries": 2,
-  "summary_file": "posts_summary.json"
+  "summary_file": "examples/posts_summary.json"
 }
