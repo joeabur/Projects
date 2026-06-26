@@ -14,10 +14,37 @@ import base64
 import csv
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.request
 from typing import Any, Iterable
+from urllib.parse import urlparse, urlunparse
+
+
+def validate_url(url: str) -> str:
+    try:
+        # Minimal path validation
+        if "/../" in url or re.search(r"/%2e%2e/", url, re.IGNORECASE):
+            raise ValueError("Invalid path")
+        
+        parsed = urlparse(url)
+        
+        # Protocol check
+        if parsed.scheme not in ("http", "https"):
+            raise ValueError("Invalid protocol")
+        
+        # Host check
+        if not parsed.hostname:
+            raise ValueError("Invalid host")
+        
+        allowed_domains = ["example.com"]  # add your allowed domains here
+        if parsed.hostname.lower() not in allowed_domains:
+            raise ValueError("Invalid host")
+        
+        return urlunparse(parsed)
+    except Exception:
+        raise ValueError("Invalid URL")
 
 
 def fetch_json(
@@ -26,6 +53,8 @@ def fetch_json(
     timeout: int = 30,
     retries: int = 3,
 ) -> Any:
+    validated_url = validate_url(url)
+    
     request_headers = {
         "User-Agent": "api-to-csv-script/1.0",
         "Accept": "application/json",
@@ -34,7 +63,7 @@ def fetch_json(
         request_headers.update(headers)
 
     request = urllib.request.Request(
-        url,
+        validated_url,
         headers=request_headers,
     )
 
